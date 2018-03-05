@@ -10,10 +10,10 @@ import abalone.gameEnum.MarbleType;
 @SuppressWarnings("serial")
 public class Marble extends JPanel {
     
-    public static final Color RED       = new Color(225, 0, 0);
-    public static final Color DARK_RED  = new Color(153, 0, 0);
-    public static final Color BLUE      = new Color(0, 0, 225);
-    public static final Color DARK_BLUE = new Color(0, 0, 153);
+    public static final Color WHITE       = new Color(255, 255, 255);
+    public static final Color DARK_WHITE  = new Color(168, 152, 146);
+    public static final Color BLACK      = new Color(0, 0, 0 );
+    public static final Color LIGHT_BLACK = new Color(51, 46, 43);
 
     private Board board;
     private Cell cell;
@@ -31,10 +31,10 @@ public class Marble extends JPanel {
     }
 
     public void init() {
-        if (type == MarbleType.RED) {
-            color = RED;
-        } else if (type == MarbleType.BLUE) {
-            color = BLUE;
+        if (type == MarbleType.WHITE) {
+            color = WHITE;
+        } else if (type == MarbleType.BLACK) {
+            color = BLACK;
         }
     }
     
@@ -59,13 +59,13 @@ public class Marble extends JPanel {
     }
     
     public void setNormalColor() {
-        if(getType() == MarbleType.RED) color = RED;
-        if(getType() == MarbleType.BLUE) color = BLUE;
+        if(getType() == MarbleType.WHITE) color = WHITE;
+        if(getType() == MarbleType.BLACK) color = BLACK;
     }
     
     public void setDarkColor() {
-        if(getType() == MarbleType.RED) color = DARK_RED;
-        if(getType() == MarbleType.BLUE) color = DARK_BLUE;
+        if(getType() == MarbleType.WHITE) color = DARK_WHITE;
+        if(getType() == MarbleType.BLACK) color = LIGHT_BLACK;
     }
 
     public static void clearCells(ArrayList<Marble> marbles) {

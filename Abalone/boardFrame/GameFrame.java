@@ -156,7 +156,7 @@ public class GameFrame extends JFrame {
             g.fillRect(910,0,850, 450);
             g.setColor(Color.black);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.BLUE), 1050, 310);
+            g.drawString("" + getScore(MarbleType.BLACK), 1050, 310);
             g.setFont(fnt2);
             g.drawString("White", 1300, 110);
             g.drawString(printTurnTime(sec_player2, msec_player2), 920, 190 );
@@ -168,7 +168,7 @@ public class GameFrame extends JFrame {
             g.fillRect(910,400, 850, 450);
             g.setColor(Color.white);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.RED), 1050, 750);
+            g.drawString("" + getScore(MarbleType.WHITE), 1050, 750);
             g.setFont(fnt2);
             g.drawString("Black", 1300, 550);
             g.drawString(printTurnTime(sec_player1, msec_player1),920 ,630);
@@ -176,7 +176,7 @@ public class GameFrame extends JFrame {
             g.drawString("Turns " + board.getNumOfMove(TURN.PLAYER1), 1300, 730);
             
             
-            g.setColor(Color.DARK_GRAY);
+            g.setColor(new Color(111, 37, 3));
             removeAllMouseListeners();
             Graphics2D g2d = (Graphics2D) g;
             drawHexagon(g2d);
@@ -214,7 +214,7 @@ public class GameFrame extends JFrame {
                 int x = cell.getX() * 75;
                 int y = (cell.getY() - 1) * 45;
                 if (cell.getMarble() == null) {
-                    g.setColor(Color.BLACK);
+                    g.setColor(new Color(173, 105, 74));
                 } else {
                     g.setColor(cell.getMarble().getColor());
                 }
@@ -323,12 +323,12 @@ public class GameFrame extends JFrame {
 
             private boolean checkTurn() {
                 if (Board.PLAYER_TURN == TURN.PLAYER1) {
-                    if (cell.getMarble().getType() == MarbleType.BLUE)
+                    if (cell.getMarble().getType() == MarbleType.BLACK)
                         return true;
                     else
                         return false;
                 } else {
-                    if (cell.getMarble().getType() == MarbleType.RED)
+                    if (cell.getMarble().getType() == MarbleType.WHITE)
                         return true;
                     else
                         return false;
@@ -361,11 +361,11 @@ public class GameFrame extends JFrame {
             // check if a marble is enemy
             private boolean enemyMarble(Marble marble) {
                 if (board.PLAYER_TURN == TURN.PLAYER1) {
-                    if (marble.getType() == MarbleType.RED) {
+                    if (marble.getType() == MarbleType.WHITE) {
                         return true;
                     }
                 } else if (board.PLAYER_TURN == TURN.PLAYER2) {
-                    if (marble.getType() == MarbleType.BLUE) {
+                    if (marble.getType() == MarbleType.BLACK) {
                         return true;
                     }
                 }
@@ -812,7 +812,7 @@ public class GameFrame extends JFrame {
         String winner;
         JPanel panel = new JPanel();
 
-        if (type == MarbleType.RED) {
+        if (type == MarbleType.WHITE) {
             winner = "Red";
         } else {
             winner = "Blue";
@@ -872,10 +872,10 @@ public class GameFrame extends JFrame {
     }
 
     public void showVictoryWindow() {
-        if (getScore(MarbleType.BLUE) == 6) {
-            victoryWindow(MarbleType.BLUE);
-        } else if (getScore(MarbleType.RED) == 6) {
-            victoryWindow(MarbleType.RED);
+        if (getScore(MarbleType.BLACK) == 6) {
+            victoryWindow(MarbleType.BLACK);
+        } else if (getScore(MarbleType.WHITE) == 6) {
+            victoryWindow(MarbleType.WHITE);
         }
     }
     

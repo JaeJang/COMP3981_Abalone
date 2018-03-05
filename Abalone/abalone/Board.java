@@ -237,13 +237,13 @@ public class Board {
     }
 
     public void setMarbles(ArrayList<Cell> cells, MarbleType color) {
-        if (color.equals(MarbleType.BLUE)) {
+        if (color.equals(MarbleType.BLACK)) {
             for (Cell cell : cells) {
-                cell.setMarble(new Marble(this, cell, MarbleType.BLUE));
+                cell.setMarble(new Marble(this, cell, MarbleType.BLACK));
             }
-        } else if (color.equals(MarbleType.RED)) {
+        } else if (color.equals(MarbleType.WHITE)) {
             for (Cell cell : cells) {
-                cell.setMarble(new Marble(this, cell, MarbleType.RED));
+                cell.setMarble(new Marble(this, cell, MarbleType.WHITE));
             }
         }
     }
@@ -265,7 +265,7 @@ public class Board {
             if (legalSpace(3, i))
                 space.add(cell[3][i]); //
         }
-        setMarbles(space, MarbleType.RED);
+        setMarbles(space, MarbleType.WHITE);
     }
 
     /**
@@ -285,7 +285,7 @@ public class Board {
             if (legalSpace(9, i))
                 space.add(cell[9][i]); //
         }
-        setMarbles(space, MarbleType.BLUE);
+        setMarbles(space, MarbleType.BLACK);
     }
 
     public void placeBlueMarblesDaisy(Layout layout) {
@@ -305,7 +305,7 @@ public class Board {
         cells.add(firstCell);
         cells.add(secondCell);
 
-        setMarbles(cells, MarbleType.BLUE);
+        setMarbles(cells, MarbleType.BLACK);
     }
 
     public void placeRedMarblesDaisy(Layout layout) {
@@ -324,7 +324,7 @@ public class Board {
         cells.add(firstCell);
         cells.add(secondCell);
 
-        setMarbles(cells, MarbleType.RED);
+        setMarbles(cells, MarbleType.WHITE);
     }
 
     /**

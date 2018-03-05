@@ -64,7 +64,7 @@ public class KeyInput extends KeyAdapter{
 
                         
 
-                        if(cell.getMarble().getType() == MarbleType.BLUE) {
+                        if(cell.getMarble().getType() == MarbleType.BLACK) {
 
                             cell.setMarble(null);
 
