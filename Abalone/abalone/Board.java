@@ -75,6 +75,10 @@ public class Board {
         initializeMoveSets();
     }
 
+    public TURN getTurn() {
+        return PLAYER_TURN;
+    }
+    
     /**
      * Returns the Cell at the specified index. Does not check whether if the Cell
      * is null.

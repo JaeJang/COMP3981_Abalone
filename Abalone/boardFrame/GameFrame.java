@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 
 import abalone.Board;
 import abalone.Cell;
+import abalone.Log;
 import abalone.Marble;
 import abalone.Menu;
 import abalone.gameEnum.Direction;
@@ -151,7 +152,14 @@ public class GameFrame extends JFrame {
             //System.out.println("Paint called");
             super.paintComponent(g);
             
-            //Player2(White) information
+            // has a turn limit
+            if(turnLimit != 0) {
+                g.setColor(Color.black);
+                g.setFont(fnt2);
+                g.drawString("Turn Limit " + turnLimit, 0, 110);
+            }
+            
+          //Player2(White) information
             g.setColor(Color.white);
             g.fillRect(910,0,850, 450);
             g.setColor(Color.black);
@@ -536,7 +544,12 @@ public class GameFrame extends JFrame {
                     Direction direction) {
                 int xDirection = board.getMoveSets().get(direction).x;
                 int yDirection = board.getMoveSets().get(direction).y;
+                Log log = new Log(board);
+
                 for (Marble marble : marbles) {
+                    log.setMarble(marble);
+                    log.setDirection(direction.toString());
+                    log.addMove(marble, direction);
                     int x = marble.getCell().getX() + xDirection;
                     int y = marble.getCell().getY() + yDirection;
                     marble.getCell().setMarble(null);
@@ -544,6 +557,9 @@ public class GameFrame extends JFrame {
                     board.getCellAt(x, y).setMarble(marble);
                     marble.setNormalColor();
                 }
+                System.out.println(log.getText());
+                System.out.println();
+                log.addToLog();
             }
             
             /**
@@ -809,16 +825,18 @@ public class GameFrame extends JFrame {
     }
 
     public void victoryWindow(MarbleType type) {
-        String winner;
+        String resultMessage;
         JPanel panel = new JPanel();
 
-        if (type == MarbleType.WHITE) {
-            winner = "Red";
+        if(type == null) {
+            resultMessage = "It's a draw!";
+        } else if (type == MarbleType.BLACK) {
+            resultMessage = "Black won!";
         } else {
-            winner = "Blue";
+            resultMessage = "White won!";
         }
 
-        JLabel message = new JLabel(winner + " won!");
+        JLabel message = new JLabel(resultMessage);
         message.setFont(new Font(null, Font.PLAIN, 20));
 
         JButton reset = new JButton("Reset");
@@ -872,10 +890,21 @@ public class GameFrame extends JFrame {
     }
 
     public void showVictoryWindow() {
-        if (getScore(MarbleType.BLACK) == 6) {
+        if (getScore(MarbleType.WHITE) == 6) {
             victoryWindow(MarbleType.BLACK);
-        } else if (getScore(MarbleType.WHITE) == 6) {
+        } else if (getScore(MarbleType.BLACK) == 6) {
             victoryWindow(MarbleType.WHITE);
+        } else {
+            // has turn limit
+            if(turnLimit != 0) {
+                // both players reached turn limit
+                if(board.getNumOfMove(TURN.PLAYER1) == board.getNumOfMove(TURN.PLAYER2)) {
+                    if(board.getNumOfMove(TURN.PLAYER2) == turnLimit) {
+                        // print draw message
+                        victoryWindow(null);
+                    }
+                }
+            }
         }
     }
     
@@ -901,27 +930,27 @@ public class GameFrame extends JFrame {
     
     public String getTotalTime(int sec, int msec) {
         int min = sec / 60;
-        sec = sec % 60 + msec / 10;
-        msec = msec % 10;
+        sec = sec % 60 + msec / 100;
+        msec = msec % 100;
         if(min < 10) {
             if(sec < 10) {
-                return "0" + min + ":0" + sec + ":" + msec;
+                return "0" + min + ":0" + sec + ":" + String.format("%02d", msec);
             } else {
-                return "0" + min + ":" + sec + ":" + msec;
+                return "0" + min + ":" + sec + ":" + String.format("%02d", msec);
             }
         } else {
             if(sec < 10)
-                return min + ":0" + sec + ":" + msec;
+                return min + ":0" + sec + ":" + String.format("%02d", msec);
             else
-                return min + ":" + sec + ":" + msec;
+                return min + ":" + sec + ":" + String.format("%02d", msec);
         }
     }
     
     private String printTurnTime(int sec, int msec) {
         if(sec < 10) {
-            return "0" + sec + ":" + msec;
+            return "0" + sec + ":" + String.format("%02d", msec);
         } else {
-            return sec  + ":" + msec;
+            return sec  + ":" + String.format("%02d", msec);
         }
     }
 }

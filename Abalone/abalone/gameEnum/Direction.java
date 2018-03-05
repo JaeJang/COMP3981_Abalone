@@ -2,18 +2,26 @@ package abalone.gameEnum;
 
 public enum Direction {
 
+    LEFT("LEFT"),
 
+    RIGHT("RIGHT"),
 
-    LEFT,
+    TOP_LEFT("TOP"),
 
-    RIGHT,
+    TOP_RIGHT("TOP RIGHT"),
 
-    TOP_LEFT,
+    BOT_LEFT("BOTTOM LEFT"),
 
-    TOP_RIGHT,
+    BOT_RIGHT("BOTTOM RIGHT");
 
-    BOT_LEFT,
-
-    BOT_RIGHT
-
+    private final String text;
+    
+    Direction(final String text) {
+        this.text = text;
+    }
+    
+    @Override
+    public String toString() {
+        return text;
+    }
 }

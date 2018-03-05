@@ -33,7 +33,7 @@ public class MyTimer extends TimerTask {
     /**
      * Delay of timer class.
      */
-    private static final int DELAY = 100;
+    private static final int DELAY = 10;
     
     /**
      * Timer object.
@@ -76,7 +76,7 @@ public class MyTimer extends TimerTask {
                 resetMarbles();
             }
             
-            if(msec >= 10) {
+            if(msec >= 100) {
                 msec = 0;
                 ++sec;
             }
