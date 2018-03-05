@@ -44,6 +44,7 @@ public class GameFrame extends JFrame {
 
     public static STATE state = STATE.MODE_SETTING;
     public static boolean turnOver = false;
+    public static int turnLimit = 0;
     
     private Board board;
     private Marble marble;
@@ -85,15 +86,7 @@ public class GameFrame extends JFrame {
         // Game state is changed from mouse input and keyboard input
         // and init() method will be called
         getContentPane().removeAll();
-        if (state == STATE.LAYOUT_SELECT) {
-            menuPanel = menu.startPanel();
-            add(menuPanel);
-        } 
-        else if(state == STATE.TIME_SETTING) {
-            menuPanel = menu.timeSettingPanel();
-            add(menuPanel);
-        } 
-        else if(state == STATE.MODE_SETTING) {
+        if(state == STATE.MODE_SETTING) {
             menuPanel = menu.gameModeSetPanel();
             getContentPane().removeAll();
             add(menuPanel);
@@ -104,6 +97,19 @@ public class GameFrame extends JFrame {
             menuPanel = menu.teamSettingPanel();
             add(menuPanel);
         }
+        else if (state == STATE.LAYOUT_SELECT) {
+            menuPanel = menu.startPanel();
+            add(menuPanel);
+        } 
+        else if(state == STATE.TIME_SETTING) {
+            menuPanel = menu.timeSettingPanel();
+            add(menuPanel);
+        } 
+        else if(state == STATE.TURN_LIMIT_SETTING) {
+            menuPanel = menu.turnLimitSetting();
+            add(menuPanel);
+        }
+        
         else if (state == STATE.GAME) {
             add(boardpanel);
         } 
@@ -147,27 +153,27 @@ public class GameFrame extends JFrame {
             
             //Player2(White) information
             g.setColor(Color.white);
-            g.fillRect(910,0,800, 450);
+            g.fillRect(910,0,850, 450);
             g.setColor(Color.black);
             g.setFont(fnt1);
             g.drawString("" + getScore(MarbleType.BLUE), 1050, 310);
             g.setFont(fnt2);
             g.drawString("White", 1300, 110);
-            g.drawString(sec_player2 + ":" + msec_player2, 920, 190 );
+            g.drawString(printTurnTime(sec_player2, msec_player2), 920, 190 );
             g.drawString("Total  " + getTotalTime(totalSec_player2,totalmSec_player2), 1300, 200);
-            g.drawString("Moves " + board.getNumOfMove(TURN.PLAYER2), 1300, 290);
+            g.drawString("Turns " + board.getNumOfMove(TURN.PLAYER2), 1300, 290);
             
             //Player1(Black) information
             g.setColor(Color.black);
-            g.fillRect(910,400, 800, 450);
+            g.fillRect(910,400, 850, 450);
             g.setColor(Color.white);
             g.setFont(fnt1);
             g.drawString("" + getScore(MarbleType.RED), 1050, 750);
             g.setFont(fnt2);
             g.drawString("Black", 1300, 550);
-            g.drawString(sec_player1 + ":" + msec_player1,920 ,630);
+            g.drawString(printTurnTime(sec_player1, msec_player1),920 ,630);
             g.drawString("Total  " + getTotalTime(totalSec_player1,totalmSec_player1), 1300, 640);
-            g.drawString("Moves " + board.getNumOfMove(TURN.PLAYER1), 1300, 730);
+            g.drawString("Turns " + board.getNumOfMove(TURN.PLAYER1), 1300, 730);
             
             
             g.setColor(Color.DARK_GRAY);
@@ -894,7 +900,28 @@ public class GameFrame extends JFrame {
     }
     
     public String getTotalTime(int sec, int msec) {
-        
-         return (sec / 60) + ":" + (sec % 60 + msec / 10) + ":" +( msec % 10); 
+        int min = sec / 60;
+        sec = sec % 60 + msec / 10;
+        msec = msec % 10;
+        if(min < 10) {
+            if(sec < 10) {
+                return "0" + min + ":0" + sec + ":" + msec;
+            } else {
+                return "0" + min + ":" + sec + ":" + msec;
+            }
+        } else {
+            if(sec < 10)
+                return min + ":0" + sec + ":" + msec;
+            else
+                return min + ":" + sec + ":" + msec;
+        }
+    }
+    
+    private String printTurnTime(int sec, int msec) {
+        if(sec < 10) {
+            return "0" + sec + ":" + msec;
+        } else {
+            return sec  + ":" + msec;
+        }
     }
 }

@@ -50,7 +50,7 @@ public class Main extends JFrame{
         final Dimension size;
 
         size = calculateScreenArea(10f, 1.2f);
-        frame.setSize(1800, 900);
+        frame.setSize(1750, 900);
         frame.setLocation(0, 0);;
 
         

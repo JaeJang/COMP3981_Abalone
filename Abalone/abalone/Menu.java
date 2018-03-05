@@ -148,5 +148,26 @@ public class Menu extends JPanel{
         };
     }
     
+    public JPanel turnLimitSetting() {
+        return new JPanel() {
+            public void paintComponent(Graphics g) {
+                g.setColor(Color.white);
+                g.fillRect(0, 40, 1800,170);
+                g.setColor(Color.black);
+                g.fillRect(0, 355, 1800,170);
+                g.setColor(Color.white);
+                g.fillRect(0, 670, 1800,170);
+                
+                g.setColor(Color.black);
+                g.setFont(new Font("Impact", 2, 150));
+                g.drawString("40 TURNS / GAME", 350, 185);
+                g.setColor(Color.white);
+                g.drawString("50 TURNS / GAME", 350, 500);
+                g.setColor(Color.black);
+                g.drawString("60 TURNS / GAME", 350, 815);
+            }
+        };
+    }
+    
     
 }
