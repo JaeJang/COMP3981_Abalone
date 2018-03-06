@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import abalone.Board;
+import abalone.gameEnum.MarbleType;
 import abalone.gameEnum.STATE;
 import abalone.gameEnum.TURN;
 import boardFrame.GameFrame;
@@ -54,12 +55,13 @@ public class MouseInput extends MouseAdapter {
       //Select a black  player
         else if(GameFrame.state == STATE.TEAM_SETTING_PVP) {
             if (mouseOver(mx, my, 0, 355, 1800,170)) {
-                
+				GameFrame.TURN_SETTING = TURN.PLAYER1;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
             
             if (mouseOver(mx, my, 0, 670, 1800,170)) {
+                GameFrame.TURN_SETTING = TURN.PLAYER2;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
@@ -68,11 +70,13 @@ public class MouseInput extends MouseAdapter {
         //Select a black player or computer
         else if(GameFrame.state == STATE.TEAM_SETTING_PVC) {
             if (mouseOver(mx, my, 0, 355, 1800,170)) {
+                GameFrame.TURN_SETTING = TURN.PLAYER;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
             
             if (mouseOver(mx, my, 0, 670, 1800,170)) {
+                GameFrame.TURN_SETTING = TURN.COMPUTER;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
@@ -81,11 +85,13 @@ public class MouseInput extends MouseAdapter {
         //Select a black computer player
         else if(GameFrame.state == STATE.TEAM_SETTING_CVC) {
             if (mouseOver(mx, my, 0, 355, 1800,170)) {
+                GameFrame.TURN_SETTING = TURN.COMPUTER1;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
             
             if (mouseOver(mx, my, 0, 670, 1800,170)) {
+                GameFrame.TURN_SETTING = TURN.COMPUTER2;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }

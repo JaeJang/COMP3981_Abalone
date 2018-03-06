@@ -46,7 +46,8 @@ public class GameFrame extends JFrame {
     public static STATE state = STATE.MODE_SETTING;
     public static boolean turnOver = false;
     public static int turnLimit = 0;
-    
+    public static TURN TURN_SETTING;
+
     private Board board;
     private Marble marble;
     private ArrayList<DrawingPanel> panels;
@@ -55,15 +56,15 @@ public class GameFrame extends JFrame {
     private JPanel menuPanel;
     private Menu menu;
     private MyTimer timer;
-    private int sec_player1;
-    private int sec_player2;
-    private int msec_player1;
-    private int msec_player2;
-    private int totalSec_player1;
-    private int totalSec_player2;
-    private int totalmSec_player1;
-    private int totalmSec_player2;
-    
+    private int sec_black;
+    private int sec_white;
+    private int msec_black;
+    private int msec_white;
+    private int totalSec_black;
+    private int totalSec_white;
+    private int totalmSec_black;
+    private int totalmSec_white;
+
     public GameFrame(Board board) {
         setTitle("Abalone");
         this.board = board;
@@ -78,43 +79,37 @@ public class GameFrame extends JFrame {
         menuPanel = menu.startPanel();
         timer = new MyTimer(this);
         timer.setTimer();
-
     }
 
     public void init() {
-        //System.out.println("GameFrame init called");
+        // System.out.println("GameFrame init called");
 
         // Game state is changed from mouse input and keyboard input
         // and init() method will be called
         getContentPane().removeAll();
-        if(state == STATE.MODE_SETTING) {
+        if (state == STATE.MODE_SETTING) {
             menuPanel = menu.gameModeSetPanel();
             getContentPane().removeAll();
             add(menuPanel);
-        } 
-        else if(state == STATE.TEAM_SETTING_PVP 
+        } else if (state == STATE.TEAM_SETTING_PVP
                 || state == STATE.TEAM_SETTING_PVC
                 || state == STATE.TEAM_SETTING_CVC) {
             menuPanel = menu.teamSettingPanel();
             add(menuPanel);
-        }
-        else if (state == STATE.LAYOUT_SELECT) {
+        } else if (state == STATE.LAYOUT_SELECT) {
             menuPanel = menu.startPanel();
             add(menuPanel);
-        } 
-        else if(state == STATE.TIME_SETTING) {
+        } else if (state == STATE.TIME_SETTING) {
             menuPanel = menu.timeSettingPanel();
             add(menuPanel);
-        } 
-        else if(state == STATE.TURN_LIMIT_SETTING) {
+        } else if (state == STATE.TURN_LIMIT_SETTING) {
             menuPanel = menu.turnLimitSetting();
             add(menuPanel);
         }
-        
+
         else if (state == STATE.GAME) {
             add(boardpanel);
-        } 
-        else if (state == STATE.PASUSE) {
+        } else if (state == STATE.PASUSE) {
             menuPanel = menu.pausePanel();
             add(menuPanel);
         }
@@ -135,9 +130,9 @@ public class GameFrame extends JFrame {
     }
 
     public class BoardPanel extends JPanel {
-        
-        Font fnt1 = new Font("Impact", 2, 330);
-        Font fnt2 = new Font("Impact", 2, 70);
+
+        Font fnt1 = new Font("Impact", 2 , 330 );
+        Font fnt2 = new Font("Impact", 2 , 70 );
 
         public BoardPanel() {
             setTitle("Abalone");
@@ -149,41 +144,50 @@ public class GameFrame extends JFrame {
         @Override
         public void paintComponent(Graphics g) {
 
-            //System.out.println("Paint called");
+            // System.out.println("Paint called");
             super.paintComponent(g);
-            
+
             // has a turn limit
-            if(turnLimit != 0) {
+            if (turnLimit != 0) {
                 g.setColor(Color.black);
                 g.setFont(fnt2);
-                g.drawString("Turn Limit " + turnLimit, 0, 110);
+                g.drawString("Turn Limit " + turnLimit, 0, 110 );
             }
-            
-          //Player2(White) information
+
+            // Player2(White) information
             g.setColor(Color.white);
-            g.fillRect(910,0,850, 450);
+            g.fillRect(910, 0, 850 , 450 );
             g.setColor(Color.black);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.BLACK), 1050, 310);
+            g.drawString("" + getScore(MarbleType.BLACK), 995, 310 );
             g.setFont(fnt2);
-            g.drawString("White", 1300, 110);
-            g.drawString(printTurnTime(sec_player2, msec_player2), 920, 190 );
-            g.drawString("Total  " + getTotalTime(totalSec_player2,totalmSec_player2), 1300, 200);
-            g.drawString("Turns " + board.getNumOfMove(TURN.PLAYER2), 1300, 290);
-            
-            //Player1(Black) information
+            g.drawString("White", 1090, 110 );
+            g.drawString(printTurnTime(sec_white, msec_white), 910,
+                    190 );
+            g.drawString(
+                    "Total  "
+                            + getTotalTime(totalSec_white, totalmSec_white),
+                    1090, 200 );
+            g.drawString("Turns " + board.getNumOfMove(MarbleType.WHITE), 1090,
+                    290 );
+
+            // Player1(Black) information
             g.setColor(Color.black);
-            g.fillRect(910,400, 850, 450);
+            g.fillRect(910, 400 , 850 , 450 );
             g.setColor(Color.white);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.WHITE), 1050, 750);
+            g.drawString("" + getScore(MarbleType.WHITE), 995, 750 );
             g.setFont(fnt2);
-            g.drawString("Black", 1300, 550);
-            g.drawString(printTurnTime(sec_player1, msec_player1),920 ,630);
-            g.drawString("Total  " + getTotalTime(totalSec_player1,totalmSec_player1), 1300, 640);
-            g.drawString("Turns " + board.getNumOfMove(TURN.PLAYER1), 1300, 730);
-            
-            
+            g.drawString("Black", 1090, 550 );
+            g.drawString(printTurnTime(sec_black, msec_black), 910,
+                    630 );
+            g.drawString(
+                    "Total  "
+                            + getTotalTime(totalSec_black, totalmSec_black),
+                    1090, 640 );
+            g.drawString("Turns " + board.getNumOfMove(MarbleType.BLACK), 1090,
+                    730 );
+
             g.setColor(new Color(111, 37, 3));
             removeAllMouseListeners();
             Graphics2D g2d = (Graphics2D) g;
@@ -330,18 +334,12 @@ public class GameFrame extends JFrame {
             }
 
             private boolean checkTurn() {
-                if (Board.PLAYER_TURN == TURN.PLAYER1) {
-                    if (cell.getMarble().getType() == MarbleType.BLACK)
-                        return true;
-                    else
-                        return false;
+                if (cell.getMarble().getType() == board.getColourMap()
+                        .get(Board.PLAYER_TURN)) {
+                    return true;
                 } else {
-                    if (cell.getMarble().getType() == MarbleType.WHITE)
-                        return true;
-                    else
-                        return false;
+                    return false;
                 }
-
             }
 
             // check if the third marble selected is in line with the first two
@@ -368,16 +366,7 @@ public class GameFrame extends JFrame {
 
             // check if a marble is enemy
             private boolean enemyMarble(Marble marble) {
-                if (board.PLAYER_TURN == TURN.PLAYER1) {
-                    if (marble.getType() == MarbleType.WHITE) {
-                        return true;
-                    }
-                } else if (board.PLAYER_TURN == TURN.PLAYER2) {
-                    if (marble.getType() == MarbleType.BLACK) {
-                        return true;
-                    }
-                }
-                return false;
+                return board.getColourMap().get(Board.PLAYER_TURN) != marble.getType();
             }
 
             /**
@@ -524,67 +513,48 @@ public class GameFrame extends JFrame {
              * @param enemies
              *            enemy marbles in queue to be moved
              */
-            public void killEnemy(ArrayList<Marble> enemies) {
+            public void killEnemy(ArrayList<Marble> enemies, Log log) {
                 Marble lastEnemy = enemies.get(enemies.size() - 1);
                 enemies.remove(lastEnemy);
+                log.addEnemyKilled(lastEnemy);
             }
 
-            /**
-             * Accepts and ArrayList of marbles. This ArrayList will contain all
-             * the marbles that are going to be moved. The Direction will
-             * determine which direction the marbles will move. Moves the first
-             * marble in the list first.
-             * 
-             * @param marbles
-             *            marbles to move
-             * @param direction
-             *            direction of move
-             */
-            public void moveFirstToLast(ArrayList<Marble> marbles,
-                    Direction direction) {
+            public ArrayList<Marble> mergeLists(ArrayList<Marble> list1,
+                    ArrayList<Marble> list2) {
+                ArrayList<Marble> list3 = new ArrayList<Marble>();
+                for (Marble marble : list1) {
+                    list3.add(marble);
+                }
+                for (Marble marble : list2) {
+                    list3.add(marble);
+                }
+                return list3;
+            }
+
+            public void move(ArrayList<Marble> marbles, Direction direction,
+                    Log log) {
                 int xDirection = board.getMoveSets().get(direction).x;
                 int yDirection = board.getMoveSets().get(direction).y;
-                Log log = new Log(board);
 
                 for (Marble marble : marbles) {
-                    log.setMarble(marble);
-                    log.setDirection(direction.toString());
-                    log.addMove(marble, direction);
-                    int x = marble.getCell().getX() + xDirection;
-                    int y = marble.getCell().getY() + yDirection;
-                    marble.getCell().setMarble(null);
-                    marble.setCell(board.getCellAt(x, y));
-                    board.getCellAt(x, y).setMarble(marble);
-                    marble.setNormalColor();
+                    int newX = marble.getCell().getX() + xDirection;
+                    int newY = marble.getCell().getY() + yDirection;
+
+                    if (board.getCellAt(newX, newY) != null) {
+                        log.addMove(marble, direction);
+                        if (marble.getCell().getMarble() == marble) {
+                            marble.getCell().setMarble(null);
+                        }
+                        marble.setCell(board.getCellAt(newX, newY));
+                        board.getCellAt(newX, newY).setMarble(marble);
+                        marble.setNormalColor();
+                    } else {
+                        log.addEnemyKilled(marble);
+                        marble.setCell(null);
+                    }
                 }
                 System.out.println(log.getText());
-                System.out.println();
                 log.addToLog();
-            }
-            
-            /**
-             * Accepts and ArrayList of marbles. This ArrayList will contain all
-             * the marbles that are going to be moved. The Direction will
-             * determine which direction the marbles will move. Moves the last
-             * marble in the list first.
-             * 
-             * @param marbles
-             *            marbles to move
-             * @param direction
-             *            direction of move
-             */
-            public void moveLastToFirst(ArrayList<Marble> marbles,
-                    Direction direction) {
-                int xDirection = board.getMoveSets().get(direction).x;
-                int yDirection = board.getMoveSets().get(direction).y;
-                for (int i = marbles.size() - 1; i >= 0; i--) {
-                    int x = marbles.get(i).getCell().getX() + xDirection;
-                    int y = marbles.get(i).getCell().getY() + yDirection;
-                    marbles.get(i).getCell().setMarble(null);
-                    marbles.get(i).setCell(board.getCellAt(x, y));
-                    board.getCellAt(x, y).setMarble(marbles.get(i));
-                    marbles.get(i).setNormalColor();
-                }
             }
 
             /**
@@ -599,9 +569,10 @@ public class GameFrame extends JFrame {
              * @return true if move is executed, false if not
              */
             public boolean inlineMove(ArrayList<Marble> friends,
-                    ArrayList<Marble> enemies, Direction direction) {
+                    ArrayList<Marble> enemies, Direction direction, Log log) {
                 boolean moved = false;
-                
+                ArrayList<Marble> marblesToMove = mergeLists(friends, enemies);
+
                 // if there are enemies involved
                 if (enemies.size() > 0) {
                     Cell lastEnemyCell = enemies.get(enemies.size() - 1)
@@ -609,29 +580,15 @@ public class GameFrame extends JFrame {
                     // get the destination cell of the enemy
                     Cell nextCell = board.getDestinationCell(lastEnemyCell,
                             direction);
-                    // if the destination cell is not null
-                    if (nextCell != null) {
-                        // if the destination cell is occupied
-                        if (!nextCell.containsMarble()) {
-                            // execute move only when the destination cell of
-                            // the last marble is not occupied and is not null
-                            moveLastToFirst(enemies, direction);
-                            moveFirstToLast(friends, direction);
-                            moved = true;
-                        }
-                    } else {
-                        // destination cell of last enemy is null. remove the
-                        // last enemy (don't move it, let the second last
-                        // overrides it)
-                        killEnemy(enemies);
-                        moveLastToFirst(enemies, direction);
-                        moveFirstToLast(friends, direction);
+                    // if the destination cell is null or is not occupied by
+                    // marble
+                    if (nextCell == null || !nextCell.containsMarble()) {
+                        move(marblesToMove, direction, log);
                         moved = true;
                     }
                 } else {
                     // no enemy
-                    moveLastToFirst(enemies, direction);
-                    moveFirstToLast(friends, direction);
+                    move(marblesToMove, direction, log);
                     moved = true;
                 }
 
@@ -642,6 +599,7 @@ public class GameFrame extends JFrame {
              * Moves the marble to an empty cell.
              */
             public void moveMarbles() {
+                Log log = new Log(board);
                 board.setSecondCoordinates(cell.getX(), cell.getY());
                 int x = board.getSecondCoordinates().x
                         - board.getFirstCoordinates().x;
@@ -655,59 +613,63 @@ public class GameFrame extends JFrame {
                     if (entry.getValue().x == x && entry.getValue().y == y) {
                         direction = entry.getKey();
                         // if enemies
-                        if (isInlineMove(x, y)) {    
+                        if (isInlineMove(x, y)) {
                             // get friends
                             ArrayList<Marble> friends = board.getMarbles();
                             Marble firstFriend = friends.get(0);
                             // use last friend to find enemies
                             ArrayList<Marble> enemies = board
                                     .findInlineEnemies(firstFriend, direction);
-                            
+
                             // compare friends size and enemies size for sumito
                             if (sumito(friends, enemies)) {
-                                // if the move is not executed, reset selected marbles
-                                if (!inlineMove(friends, enemies, direction)) {
+                                // if the move is not executed, reset selected
+                                // marbles
+                                if (!inlineMove(friends, enemies, direction,
+                                        log)) {
                                     resetMarbles();
                                 } else {
                                     board.clearMarbles();
                                     board.setNumOfMove();
                                     if (Board.PLAYER_TURN == TURN.PLAYER1) {
-                                        totalSec_player1 += sec_player1;
-                                        
-                                        totalmSec_player1 += msec_player1;
+                                        totalSec_black += sec_black;
+
+                                        totalmSec_black += msec_black;
                                         Board.PLAYER_TURN = TURN.PLAYER2;
                                     }
 
                                     else {
-                                        totalSec_player2 += sec_player2;
-                                        totalmSec_player2 += msec_player2;                                        
+                                        totalSec_white += sec_white;
+                                        totalmSec_white += msec_white;
                                         Board.PLAYER_TURN = TURN.PLAYER1;
                                     }
                                     turnOver = true;
-                                   
+
                                     break;
                                 }
                             }
 
                         } else {
-                            // if not an in-line move, check if its valid side move
+                            // if not an in-line move, check if its valid side
+                            // move
                             if (validSideMove(x, y)) {
-                                moveFirstToLast(board.getMarbles(), direction);
+                                move(board.getMarbles(), direction, log);
+
                                 board.clearMarbles();
                                 board.setNumOfMove();
                                 if (Board.PLAYER_TURN == TURN.PLAYER1) {
-                                    totalSec_player1 += sec_player1;
-                                    totalmSec_player1 += msec_player1;
+                                    totalSec_black += sec_black;
+                                    totalmSec_black += msec_black;
                                     Board.PLAYER_TURN = TURN.PLAYER2;
-                                    
+
                                 } else {
-                                    totalSec_player2 += sec_player2;
-                                    totalmSec_player2 += msec_player2;
+                                    totalSec_white += sec_white;
+                                    totalmSec_white += msec_white;
                                     Board.PLAYER_TURN = TURN.PLAYER1;
                                 }
                                 turnOver = true;
                                 break;
-                               
+
                             } else {
                                 resetMarbles();
                             }
@@ -787,20 +749,23 @@ public class GameFrame extends JFrame {
      * Reset the board This method is called in KeyInput Class when users clicks
      * Reset button
      */
-    public void setBoardToNew() { 
-        
-        board = new Board(); 
-        sec_player1 = 0;
-        sec_player2 = 0;
-        totalSec_player1 = 0;
-        totalSec_player2 = 0;
-        totalmSec_player1 = 0;
-        totalmSec_player2 = 0;
+    public void setBoardToNew() {
+        board = new Board();
+        board.PLAYER_TURN = TURN_SETTING;
+        board.initializeColourMap();
+        sec_black = 0;
+        sec_white = 0;
+        totalSec_black = 0;
+        totalSec_white = 0;
+        totalmSec_black = 0;
+        totalmSec_white = 0;
         turnOver = true;
-        Board.PLAYER_TURN = TURN.PLAYER1;
+        Log.clearLogs();
     }
-    
-    public Board getBoard() { return board; }
+
+    public Board getBoard() {
+        return board;
+    }
 
     /**
      * Return scores(Number of opponent's marbles dropped out)
@@ -828,7 +793,7 @@ public class GameFrame extends JFrame {
         String resultMessage;
         JPanel panel = new JPanel();
 
-        if(type == null) {
+        if (type == null) {
             resultMessage = "It's a draw!";
         } else if (type == MarbleType.BLACK) {
             resultMessage = "Black won!";
@@ -845,7 +810,6 @@ public class GameFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 setBoardToNew();
-                Board.PLAYER_TURN = TURN.PLAYER1;
                 revalidate();
                 repaint();
                 Window win = SwingUtilities.getWindowAncestor(reset);
@@ -896,10 +860,11 @@ public class GameFrame extends JFrame {
             victoryWindow(MarbleType.WHITE);
         } else {
             // has turn limit
-            if(turnLimit != 0) {
+            if (turnLimit != 0) {
                 // both players reached turn limit
-                if(board.getNumOfMove(TURN.PLAYER1) == board.getNumOfMove(TURN.PLAYER2)) {
-                    if(board.getNumOfMove(TURN.PLAYER2) == turnLimit) {
+                if (board.getNumOfMove(MarbleType.BLACK) == board
+                        .getNumOfMove(MarbleType.WHITE)) {
+                    if (board.getNumOfMove(MarbleType.WHITE) == turnLimit) {
                         // print draw message
                         victoryWindow(null);
                     }
@@ -907,50 +872,51 @@ public class GameFrame extends JFrame {
             }
         }
     }
-    
+
     public void updateTime(int sec, int msec) {
-        if(Board.PLAYER_TURN == TURN.PLAYER1) {
-            sec_player1 = sec;
-            msec_player1 = msec;
-        } else if(Board.PLAYER_TURN == TURN.PLAYER2) {
-            sec_player2 = sec;
-            msec_player2 = msec;
+        if (board.getColourMap().get(Board.PLAYER_TURN) == MarbleType.BLACK) {
+            sec_black = sec;
+            msec_black = msec;
+        } else {
+            sec_white = sec;
+            msec_white = msec;
         }
     }
+
     public void updateTotalTime() {
-        
-        if(Board.PLAYER_TURN == TURN.PLAYER1) {
-            totalSec_player1 += sec_player1;
-            totalmSec_player1 += msec_player1;
-        } else if(Board.PLAYER_TURN == TURN.PLAYER2) {
-            totalSec_player2 += sec_player2;
-            totalmSec_player2 += msec_player2;
+
+        if (board.getColourMap().get(Board.PLAYER_TURN) == MarbleType.BLACK) {
+            totalSec_black += sec_black;
+            totalmSec_black += msec_black;
+        } else {
+            totalSec_white += sec_white;
+            totalmSec_white += msec_white;
         }
     }
-    
+
     public String getTotalTime(int sec, int msec) {
         int min = sec / 60;
-        sec = sec % 60 + msec / 100;
-        msec = msec % 100;
-        if(min < 10) {
-            if(sec < 10) {
+        sec = sec % 60 + msec / 10;
+        msec = msec % 10;
+        if (min < 10) {
+            if (sec < 10) {
                 return "0" + min + ":0" + sec + ":" + String.format("%02d", msec);
             } else {
                 return "0" + min + ":" + sec + ":" + String.format("%02d", msec);
             }
         } else {
-            if(sec < 10)
+            if (sec < 10)
                 return min + ":0" + sec + ":" + String.format("%02d", msec);
             else
                 return min + ":" + sec + ":" + String.format("%02d", msec);
         }
     }
-    
+
     private String printTurnTime(int sec, int msec) {
-        if(sec < 10) {
+        if (sec < 10) {
             return "0" + sec + ":" + String.format("%02d", msec);
         } else {
-            return sec  + ":" + String.format("%02d", msec);
+            return sec + ":" + String.format("%02d", msec);
         }
     }
 }

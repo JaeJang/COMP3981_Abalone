@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import abalone.Board;
+import abalone.Log;
 import abalone.Marble;
 import abalone.gameEnum.STATE;
 import abalone.gameEnum.TURN;
@@ -33,50 +34,49 @@ public class MyTimer extends TimerTask {
     /**
      * Delay of timer class.
      */
-    private static final int DELAY = 10;
+    private static final int DELAY = 100;
     
     /**
      * Timer object.
      */
     private Timer time;
     private GameFrame frame;
-    private Board board;
-    
     private int msec;
     private int sec;
     
-    private int player1_msec = 0;
-    private int player2_msec = 0;
-    private int player1_sec = 0;
-    private int player2_sec = 0;
-    private int player1_min = 0;
-    private int player2_min = 0;
+    private int black_msec = 0;
+    private int white_msec = 0;
+    private int black_sec = 0;
+    private int white_sec = 0;
+    private int black_min = 0;
+    private int white_min = 0;
     
     public MyTimer(GameFrame frame) {
         msec = 0;
         sec = 0;
         this.frame = frame;
-        this.board = frame.getBoard();
     }
     
     @Override
     public void run() {
         if(GameFrame.state == STATE.GAME) {
             msec += INCRE;
+            
             if(sec >= time_limit) {
                 frame.updateTotalTime();
-                if(Board.PLAYER_TURN == TURN.PLAYER1) {
-                    Board.PLAYER_TURN = TURN.PLAYER2;
-                } else if(Board.PLAYER_TURN == TURN.PLAYER2) {
-                    Board.PLAYER_TURN = TURN.PLAYER1;
-                }
+                Log log = new Log(frame.getBoard());
+                System.out.println(log.getText());
+                log.addToLog();
+                frame.getBoard().setNumOfMove();
+                
+                Board.PLAYER_TURN = frame.getBoard().OPPONENT_MAP.get(Board.PLAYER_TURN);
                 
                 sec = 0;
                 msec = 0;
                 resetMarbles();
             }
             
-            if(msec >= 100) {
+            if(msec >= 10) {
                 msec = 0;
                 ++sec;
             }
@@ -101,19 +101,19 @@ public class MyTimer extends TimerTask {
     }
     
     public void resetMarbles() {
-        for (Marble marble : board.getMarbles()) {
+        for (Marble marble : frame.getBoard().getMarbles()) {
             marble.setNormalColor();
         }
-        board.clearMarbles();
+        frame.getBoard().clearMarbles();
         frame.rePaint();
     }
     
     public String getPlayer1ToTal() {
-        return player1_min + ":" + player1_sec + ":" + player1_msec;
+        return black_min + ":" + black_sec + ":" + black_msec;
     }
     
     public String getPlayer2ToTal() {
-        return player2_min + ":" + player2_sec + ":" + player2_msec;
+        return white_min + ":" + white_sec + ":" + white_msec;
     }
 
 }

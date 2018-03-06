@@ -36,26 +36,34 @@ public class Board {
 
     public static final int NUMBER_OF_ROWS = 11;
     public static final int NUMBER_OF_COLUMNS = 21;
+    public static final HashMap<TURN, TURN> OPPONENT_MAP = new HashMap<TURN, TURN>();
+    static {
+        OPPONENT_MAP.put(TURN.PLAYER1, TURN.PLAYER2);
+        OPPONENT_MAP.put(TURN.PLAYER2, TURN.PLAYER1);
+        OPPONENT_MAP.put(TURN.PLAYER, TURN.COMPUTER);
+        OPPONENT_MAP.put(TURN.COMPUTER, TURN.PLAYER);
+        OPPONENT_MAP.put(TURN.COMPUTER1, TURN.COMPUTER2);
+        OPPONENT_MAP.put(TURN.COMPUTER2, TURN.COMPUTER1);
+    }
     public static TURN PLAYER_TURN = TURN.PLAYER1;
     public static int layout_number = 0;
 
     private ArrayList<Marble> marbles;
     private HashMap<Direction, Point> moveSet;
+    public HashMap<TURN, MarbleType> colourMap;
     private Cell[][] cell;
     private Point firstCoordinate;
     private Point secondCoordinate;
     private Stack<Marble> stackOfMarbles;
-
-    private int num_move_player1 = 0;
-    private int num_move_player2 = 0;
-
-    
+    private int num_move_white = 0;
+    private int num_move_black = 0;
     
     // Constructor for class Board.
     public Board() {
         cell = new Cell[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
         marbles = new ArrayList<Marble>();
         moveSet = new HashMap<Direction, Point>();
+        colourMap = new HashMap<TURN, MarbleType>();
         firstCoordinate = new Point();
         secondCoordinate = new Point();
         init();
@@ -73,12 +81,17 @@ public class Board {
             germanDaisyLayout();
         
         initializeMoveSets();
-    }
-
-    public TURN getTurn() {
-        return PLAYER_TURN;
+        initializeColourMap();
     }
     
+    public void initializeColourMap() {
+        colourMap.put(PLAYER_TURN, MarbleType.BLACK);
+        colourMap.put(OPPONENT_MAP.get(PLAYER_TURN), MarbleType.WHITE);
+    }
+    
+    public HashMap<TURN, MarbleType> getColourMap() {
+        return colourMap;
+    }
     /**
      * Returns the Cell at the specified index. Does not check whether if the Cell
      * is null.
@@ -531,10 +544,11 @@ public class Board {
      * Increment of number of movement for each players
      */
     public void setNumOfMove() {
-        if (Board.PLAYER_TURN == TURN.PLAYER1)
-            ++num_move_player1;
-        else
-            ++num_move_player2;
+        if(colourMap.get(PLAYER_TURN) == MarbleType.BLACK) {
+            num_move_black++;
+        } else {
+            num_move_white++;
+        }
     }
 
     /**
@@ -543,11 +557,11 @@ public class Board {
      * @param turn
      * @return
      */
-    public int getNumOfMove(TURN turn) {
-        if (turn == TURN.PLAYER1)
-            return num_move_player1;
+    public int getNumOfMove(MarbleType type) {
+        if (type == MarbleType.WHITE)
+            return num_move_white;
         else
-            return num_move_player2;
+            return num_move_black;
     }
 
 }
