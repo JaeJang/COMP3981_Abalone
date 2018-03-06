@@ -159,16 +159,16 @@ public class GameFrame extends JFrame {
             g.fillRect(910, 0, 850 , 450 );
             g.setColor(Color.black);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.BLACK), 995, 310 );
+            g.drawString("" + getScore(MarbleType.BLACK), 1050, 310 );
             g.setFont(fnt2);
-            g.drawString("White", 1090, 110 );
-            g.drawString(printTurnTime(sec_white, msec_white), 910,
+            g.drawString("White", 1300, 110 );
+            g.drawString(printTurnTime(sec_white, msec_white), 920,
                     190 );
             g.drawString(
                     "Total  "
                             + getTotalTime(totalSec_white, totalmSec_white),
-                    1090, 200 );
-            g.drawString("Turns " + board.getNumOfMove(MarbleType.WHITE), 1090,
+                    1300, 200 );
+            g.drawString("Turns " + board.getNumOfMove(MarbleType.WHITE), 1300,
                     290 );
 
             // Player1(Black) information
@@ -176,16 +176,16 @@ public class GameFrame extends JFrame {
             g.fillRect(910, 400 , 850 , 450 );
             g.setColor(Color.white);
             g.setFont(fnt1);
-            g.drawString("" + getScore(MarbleType.WHITE), 995, 750 );
+            g.drawString("" + getScore(MarbleType.WHITE), 1050, 750 );
             g.setFont(fnt2);
-            g.drawString("Black", 1090, 550 );
-            g.drawString(printTurnTime(sec_black, msec_black), 910,
+            g.drawString("Black", 1300, 550 );
+            g.drawString(printTurnTime(sec_black, msec_black), 920,
                     630 );
             g.drawString(
                     "Total  "
                             + getTotalTime(totalSec_black, totalmSec_black),
-                    1090, 640 );
-            g.drawString("Turns " + board.getNumOfMove(MarbleType.BLACK), 1090,
+                    1300, 640 );
+            g.drawString("Turns " + board.getNumOfMove(MarbleType.BLACK), 1300,
                     730 );
 
             g.setColor(new Color(111, 37, 3));
@@ -896,8 +896,8 @@ public class GameFrame extends JFrame {
 
     public String getTotalTime(int sec, int msec) {
         int min = sec / 60;
-        sec = sec % 60 + msec / 10;
-        msec = msec % 10;
+        sec = sec % 60 + msec / 100;
+        msec = msec % 100;
         if (min < 10) {
             if (sec < 10) {
                 return "0" + min + ":0" + sec + ":" + String.format("%02d", msec);

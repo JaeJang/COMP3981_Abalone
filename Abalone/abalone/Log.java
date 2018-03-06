@@ -18,61 +18,74 @@ public class Log {
     private String text;
     private String player;
     private int turn;
+    private boolean enabled;
 
     public Log(Board board) {
         setBoard(board);
         setPlayer(board.PLAYER_TURN.toString());
-        setTurn(board.getNumOfMove(board.getColourMap().get(board.PLAYER_TURN)) + 1);
+        setTurn(board.getNumOfMove(board.getColourMap().get(board.PLAYER_TURN))
+                + 1);
         setMarbleType(board.getColourMap().get(board.PLAYER_TURN));
-        text = "Player = " + player + "\nMove = " + turn + "\nMarble = " + type + "\n";
+        text = "Player = " + player + "\nMove = " + turn + "\nMarble = " + type
+                + "\n";
+        enabled = true;
+    }
+
+    public void enable(boolean bool) {
+        enabled = bool;
     }
 
     public void setTurn(int turn) {
-            this.turn = turn;
+        this.turn = turn;
     }
 
     public void setPlayer(String player) {
-            this.player = player;
+        this.player = player;
     }
 
     public void setMarbleType(MarbleType type) {
-            this.type = type.toString();
+        this.type = type.toString();
     }
 
     public void setBoard(Board board) {
-            this.board = board;
+        this.board = board;
     }
 
     public void setDirection(String direction) {
-            this.direction = direction;
+        this.direction = direction;
     }
 
     public void setMarble(Marble marble) {
-            this.marble = marble;
+        this.marble = marble;
     }
 
     public void setPoint(Point point) {
-            this.point = point;
+        this.point = point;
     }
 
     public void addMove(Marble marble, Direction direction) {
-        setMarble(marble);
-        setDirection(direction.toString());
-        setPoint(board.getMoveSets().get(direction));
+        if (enabled) {
+            setMarble(marble);
+            setDirection(direction.toString());
+            setPoint(board.getMoveSets().get(direction));
 
-        int oldX = marble.getCell().getX();
-        int oldY = marble.getCell().getY();
-        int newX = oldX + point.x;
-        int newY = oldY + point.y;
+            int oldX = marble.getCell().getX();
+            int oldY = marble.getCell().getY();
+            int newX = oldX + point.x;
+            int newY = oldY + point.y;
 
-        text += type + " marble at [" + oldX + "][" + oldY + "] moved to "
+            text += type + " marble at [" + oldX + "][" + oldY + "] moved to "
                     + direction + " at [" + newX + "][" + newY + "].\n";
+        }
     }
-    
+
     public void addEnemyKilled(Marble marble) {
-        int x = marble.getCell().getX();
-        int y = marble.getCell().getY();
-        text += type + " marble at [" + x + "][" + y + "] was pushed out.\n";
+        if (enabled) {
+            int x = marble.getCell().getX();
+            int y = marble.getCell().getY();
+            text += type + " marble at [" + x + "][" + y
+                    + "] was pushed out.\n";
+        }
     }
 
     public String getText() {
@@ -80,10 +93,12 @@ public class Log {
     }
 
     public void addToLog() {
-        if (type.equals("WHITE")) {
-            whiteHistory.add(text);
-        } else {
-            blackHistory.add(text);
+        if (enabled) {
+            if (type.equals("WHITE")) {
+                whiteHistory.add(text);
+            } else {
+                blackHistory.add(text);
+            }
         }
     }
 

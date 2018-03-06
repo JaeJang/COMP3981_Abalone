@@ -55,7 +55,7 @@ public class MouseInput extends MouseAdapter {
       //Select a black  player
         else if(GameFrame.state == STATE.TEAM_SETTING_PVP) {
             if (mouseOver(mx, my, 0, 355, 1800,170)) {
-				GameFrame.TURN_SETTING = TURN.PLAYER1;
+                GameFrame.TURN_SETTING = TURN.PLAYER1;
                 GameFrame.state = STATE.LAYOUT_SELECT;
                 frame.init();
             }
