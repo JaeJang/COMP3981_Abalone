@@ -86,10 +86,10 @@ public class Menu extends JPanel{
                 
                 g.setColor(Color.black);
                 g.setFont(new Font("Impact", 2, 150));
-                g.drawString("INSERT TIME LIMIT", 350, 185);
+                g.drawString("Insert time limit", 350, 185);
                 g.setColor(Color.white);
                 g.drawString(userTyped, 600, 500);
-                g.drawString("Second",  700 + textPosition, 500);
+                g.drawString("Seconds",  700 + textPosition, 500);
                 g.setColor(Color.black);
                 if (!userTyped.equals("")){
                     g.drawString("NEXT", 700, 815);
@@ -167,10 +167,10 @@ public class Menu extends JPanel{
                 
                 g.setColor(Color.black);
                 g.setFont(new Font("Impact", 2, 150));
-                g.drawString("INSERT TURN LIMIT", 350, 185);
+                g.drawString("Insert turn limit", 350, 185);
                 g.setColor(Color.white);
                 g.drawString(userTyped, 600, 500);
-                g.drawString("TURN",  700 + textPosition, 500);
+                g.drawString("Turns",  700 + textPosition, 500);
                 g.setColor(Color.black);
                 if (!userTyped.equals("")){
                     g.drawString("GAME START", 500, 815);

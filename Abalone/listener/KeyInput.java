@@ -35,7 +35,7 @@ public class KeyInput extends KeyAdapter{
 
         int key = e.getKeyCode();
 
-        if (GameFrame.state == STATE.TIME_SETTING) {
+        if (GameFrame.state == STATE.TIME_SETTING ||GameFrame.state == STATE.TURN_LIMIT_SETTING) {
             char temp = (char) key;
             
             //if the key is pressed from numpad, convert it to proper number
@@ -59,9 +59,26 @@ public class KeyInput extends KeyAdapter{
                     
                 }
             }
+            
+            if(key == KeyEvent.VK_ENTER) {
+                if(!userInput.equals("")) {
+                    if(GameFrame.state == STATE.TIME_SETTING) {
+                        MyTimer.time_limit = frame.menu.getUserTyped(); 
+                        resetUserInput();
+                        GameFrame.state = STATE.TURN_LIMIT_SETTING;
+                        frame.init();
+                    } else {
+                        GameFrame.turnLimit = frame.menu.getUserTyped();
+                        System.out.println(GameFrame.turnLimit);
+                        resetUserInput();
+                        GameFrame.state = STATE.GAME;
+                        frame.init();
+                    }
+                }
+            }
         }
         
-        if (GameFrame.state == STATE.TURN_LIMIT_SETTING) {
+        /*if (GameFrame.state == STATE.TURN_LIMIT_SETTING) {
             char temp = (char) key;
             
             if(KeyEvent.KEY_LOCATION_NUMPAD == e.getKeyLocation()) {
@@ -84,7 +101,7 @@ public class KeyInput extends KeyAdapter{
             }
             
             
-        }
+        }*/
 
         else if(GameFrame.state == STATE.GAME) {
 
