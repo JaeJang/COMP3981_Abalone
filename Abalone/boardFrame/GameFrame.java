@@ -148,10 +148,12 @@ public class GameFrame extends JFrame {
             super.paintComponent(g);
 
             // has a turn limit
+            g.setColor(Color.black);
+            g.setFont(fnt2);
             if (turnLimit != 0) {
-                g.setColor(Color.black);
-                g.setFont(fnt2);
                 g.drawString("Turn Limit " + turnLimit, 0, 850 );
+            } else {
+                g.drawString("Turn Limit : No Limit" , 0, 850 );
             }
 
             // Player2(White) information

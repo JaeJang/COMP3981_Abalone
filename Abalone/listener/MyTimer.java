@@ -61,19 +61,21 @@ public class MyTimer extends TimerTask {
     public void run() {
         if(GameFrame.state == STATE.GAME) {
             msec += INCRE;
-            
-            if(sec >= time_limit) {
-                frame.updateTotalTime();
-                Log log = new Log(frame.getBoard());
-                System.out.println(log.getText());
-                log.addToLog();
-                frame.getBoard().setNumOfMove();
+            if(time_limit != 0) {
                 
-                Board.PLAYER_TURN = frame.getBoard().OPPONENT_MAP.get(Board.PLAYER_TURN);
-                
-                sec = 0;
-                msec = 0;
-                resetMarbles();
+                if(sec >= time_limit) {
+                    frame.updateTotalTime();
+                    Log log = new Log(frame.getBoard());
+                    System.out.println(log.getText());
+                    log.addToLog();
+                    frame.getBoard().setNumOfMove();
+                    
+                    Board.PLAYER_TURN = frame.getBoard().OPPONENT_MAP.get(Board.PLAYER_TURN);
+                    
+                    sec = 0;
+                    msec = 0;
+                    resetMarbles();
+                }
             }
             
             if(msec >= 100) {

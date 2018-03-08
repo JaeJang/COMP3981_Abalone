@@ -74,6 +74,19 @@ public class KeyInput extends KeyAdapter{
                         GameFrame.state = STATE.GAME;
                         frame.init();
                     }
+                } else if(userInput.equals("0")) {
+                    if(GameFrame.state == STATE.TIME_SETTING) {
+                        MyTimer.time_limit = Integer.MAX_VALUE; 
+                        resetUserInput();
+                        GameFrame.state = STATE.TURN_LIMIT_SETTING;
+                        frame.init();
+                    } else {
+                        GameFrame.turnLimit = Integer.MAX_VALUE;
+                        System.out.println(GameFrame.turnLimit);
+                        resetUserInput();
+                        GameFrame.state = STATE.GAME;
+                        frame.init();
+                    }
                 }
             }
         }
