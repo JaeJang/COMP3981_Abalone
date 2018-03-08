@@ -11,6 +11,9 @@ import boardFrame.GameFrame;
 public class Menu extends JPanel{
     
     public static boolean menuSelected = false;
+    
+    private String userTyped = "";
+    private int textPosition = 0;
     /**
      * Return JPanel which is appeared when the program starts
      * 
@@ -83,11 +86,15 @@ public class Menu extends JPanel{
                 
                 g.setColor(Color.black);
                 g.setFont(new Font("Impact", 2, 150));
-                g.drawString("30 seconds / turn", 350, 185);
+                g.drawString("INSERT TIME LIMIT", 350, 185);
                 g.setColor(Color.white);
-                g.drawString("40 seconds / turn", 350, 500);
+                g.drawString(userTyped, 600, 500);
+                g.drawString("Second",  700 + textPosition, 500);
                 g.setColor(Color.black);
-                g.drawString("60 seconds / turn", 350, 815);
+                if (!userTyped.equals("")){
+                    g.drawString("NEXT", 700, 815);
+                    
+                }
             }
         };
     }
@@ -147,7 +154,7 @@ public class Menu extends JPanel{
             }
         };
     }
-    
+   
     public JPanel turnLimitSetting() {
         return new JPanel() {
             public void paintComponent(Graphics g) {
@@ -160,14 +167,48 @@ public class Menu extends JPanel{
                 
                 g.setColor(Color.black);
                 g.setFont(new Font("Impact", 2, 150));
-                g.drawString("40 TURNS / GAME", 350, 185);
+                g.drawString("INSERT TURN LIMIT", 350, 185);
                 g.setColor(Color.white);
-                g.drawString("50 TURNS / GAME", 350, 500);
+                g.drawString(userTyped, 600, 500);
+                g.drawString("TURN",  700 + textPosition, 500);
                 g.setColor(Color.black);
-                g.drawString("60 TURNS / GAME", 350, 815);
+                if (!userTyped.equals("")){
+                    g.drawString("GAME START", 500, 815);
+                    
+                }
             }
         };
     }
+    
+    public void takeTimeOrTurnlimit(String userTyped, boolean backSpacePressed) {
+        this.userTyped = userTyped;
+        if(backSpacePressed) {
+            textPosition -= 50;
+        } else {
+            textPosition += 50;
+        }
+    }
+    
+    /**
+     * convert time limit or turn limit user typed to integer
+     * and return it
+     * if user typed nothing, return -1  
+     * 
+     * @return
+     */
+    public int getUserTyped() {
+        if(!userTyped.equals("")) {
+            int temp = Integer.parseInt(userTyped);
+            textPosition = 0;
+            userTyped = "";
+            return  temp;
+            
+        } else {
+            return -1;
+        }
+    }
+    
+    
     
     
 }

@@ -17,6 +17,7 @@ import boardFrame.GameFrame;
 public class KeyInput extends KeyAdapter{
 
     private GameFrame frame;
+    private static String userInput = "";
 
     Board board;
 
@@ -32,15 +33,60 @@ public class KeyInput extends KeyAdapter{
 
     public void keyPressed(KeyEvent e) {
 
-        
-
-        //Clicked button
-
         int key = e.getKeyCode();
 
+        if (GameFrame.state == STATE.TIME_SETTING) {
+            char temp = (char) key;
+            
+            //if the key is pressed from numpad, convert it to proper number
+            if(KeyEvent.KEY_LOCATION_NUMPAD == e.getKeyLocation()) {
+                temp = (char) (key - 48);
+            }
+            
+            //if the key is digit, add it to userInput string and print it
+            if(Character.isDigit(temp)) {
+                userInput += temp;
+                frame.menu.takeTimeOrTurnlimit(userInput, false);
+                frame.rePaint();
+            }
+            
+            //when back space is pressed
+            if (key == KeyEvent.VK_BACK_SPACE) {
+                if(!userInput.equals("")) {
+                    userInput = userInput.substring(0, userInput.length() - 1); 
+                    frame.menu.takeTimeOrTurnlimit(userInput, true);
+                    frame.rePaint();
+                    
+                }
+            }
+        }
         
+        if (GameFrame.state == STATE.TURN_LIMIT_SETTING) {
+            char temp = (char) key;
+            
+            if(KeyEvent.KEY_LOCATION_NUMPAD == e.getKeyLocation()) {
+                temp = (char) (key - 48);
+            }
+            
+            if(Character.isDigit(temp)) {
+                userInput += temp;
+                frame.menu.takeTimeOrTurnlimit(userInput, false);
+                frame.rePaint();
+            }
+            
+            if (key == KeyEvent.VK_BACK_SPACE) {
+                if(!userInput.equals("")) {
+                    userInput = userInput.substring(0, userInput.length() - 1); 
+                    frame.menu.takeTimeOrTurnlimit(userInput, true);
+                    frame.rePaint();
+                    
+                }
+            }
+            
+            
+        }
 
-        if(GameFrame.state == STATE.GAME) {
+        else if(GameFrame.state == STATE.GAME) {
 
             
 
@@ -84,6 +130,8 @@ public class KeyInput extends KeyAdapter{
 
     }
 
-    
+    public static void resetUserInput() {
+        userInput = "";
+    }
 
 }

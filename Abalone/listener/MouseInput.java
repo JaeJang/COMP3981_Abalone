@@ -137,42 +137,33 @@ public class MouseInput extends MouseAdapter {
         
       //Time limit selection page
         else if(GameFrame.state == STATE.TIME_SETTING) {
-            if (mouseOver(mx, my, 0, 40, 1800,170)) {
-                MyTimer.time_limit = 30;
-                GameFrame.state = STATE.TURN_LIMIT_SETTING;
-                frame.init();
-            }
-            
-            if (mouseOver(mx, my, 0, 355, 1800,170)) {
-                MyTimer.time_limit = 40;
-                GameFrame.state = STATE.TURN_LIMIT_SETTING;
-                frame.init();
-            }
             
             if (mouseOver(mx, my, 0, 670, 1800,170)) {
-                MyTimer.time_limit = 60;
-                GameFrame.state = STATE.TURN_LIMIT_SETTING;
-                frame.init();
+                int temp = frame.menu.getUserTyped();
+                
+              //if user typed something
+                if(temp != -1) {
+                    MyTimer.time_limit = temp; 
+                    KeyInput.resetUserInput();
+                    GameFrame.state = STATE.TURN_LIMIT_SETTING;
+                    frame.init();
+                }
             }
         }
         
         else if(GameFrame.state == STATE.TURN_LIMIT_SETTING) {
-            if (mouseOver(mx, my, 0, 40, 1800,170)) {
-                GameFrame.state = STATE.GAME;
-                GameFrame.turnLimit = 40;
-                frame.init();
-            }
-            
-            if (mouseOver(mx, my, 0, 355, 1800,170)) {
-                GameFrame.state = STATE.GAME;
-                GameFrame.turnLimit = 60;
-                frame.init();
-            }
             
             if (mouseOver(mx, my, 0, 670, 1800,170)) {
-                GameFrame.state = STATE.GAME;
-                GameFrame.turnLimit = 60;
-                frame.init();
+                int temp = frame.menu.getUserTyped();
+                
+                //if user typed something
+                if(temp != -1) {
+                    GameFrame.state = STATE.GAME;
+                    GameFrame.turnLimit = temp;
+                    System.out.println(temp);
+                    frame.init();
+                    
+                }
             }
         }
 

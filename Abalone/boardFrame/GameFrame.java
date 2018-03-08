@@ -47,6 +47,7 @@ public class GameFrame extends JFrame {
     public static boolean turnOver = false;
     public static int turnLimit = 0;
     public static TURN TURN_SETTING;
+    public Menu menu;
 
     private Board board;
     private Marble marble;
@@ -54,7 +55,6 @@ public class GameFrame extends JFrame {
 
     private BoardPanel boardpanel;
     private JPanel menuPanel;
-    private Menu menu;
     private MyTimer timer;
     private int sec_black;
     private int sec_white;
@@ -633,7 +633,6 @@ public class GameFrame extends JFrame {
                                     board.setNumOfMove();
                                     if (Board.PLAYER_TURN == TURN.PLAYER1) {
                                         totalSec_black += sec_black;
-
                                         totalmSec_black += msec_black;
                                         Board.PLAYER_TURN = TURN.PLAYER2;
                                     }
@@ -751,10 +750,12 @@ public class GameFrame extends JFrame {
      */
     public void setBoardToNew() {
         board = new Board();
-        board.PLAYER_TURN = TURN_SETTING;
+        Board.PLAYER_TURN = TURN_SETTING;
         board.initializeColourMap();
         sec_black = 0;
         sec_white = 0;
+        msec_black = 0;
+        msec_white = 0;
         totalSec_black = 0;
         totalSec_white = 0;
         totalmSec_black = 0;
@@ -894,29 +895,26 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public String getTotalTime(int sec, int msec) {
+    private String getTotalTime(int sec, int msec) {
         int min = sec / 60;
         sec = sec % 60 + msec / 100;
         msec = msec % 100;
-        if (min < 10) {
-            if (sec < 10) {
-                return "0" + min + ":0" + sec + ":" + String.format("%02d", msec);
-            } else {
-                return "0" + min + ":" + sec + ":" + String.format("%02d", msec);
-            }
-        } else {
-            if (sec < 10)
-                return min + ":0" + sec + ":" + String.format("%02d", msec);
-            else
-                return min + ":" + sec + ":" + String.format("%02d", msec);
-        }
+       
+        return String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", msec);
     }
-
+    
+    /**
+     * Print current player's turn time
+     * 
+     * @param sec updated seceond
+     * @param msec updated milisecond
+     * @return well formed time string
+     */
     private String printTurnTime(int sec, int msec) {
-        if (sec < 10) {
-            return "0" + sec + ":" + String.format("%02d", msec);
-        } else {
-            return sec + ":" + String.format("%02d", msec);
-        }
+        
+        return String.format("%02d",sec) + ":" + String.format("%02d", msec);
+        
     }
+    
+    
 }
