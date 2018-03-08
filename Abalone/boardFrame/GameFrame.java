@@ -631,19 +631,17 @@ public class GameFrame extends JFrame {
                                 } else {
                                     board.clearMarbles();
                                     board.setNumOfMove();
-                                    if (Board.PLAYER_TURN == TURN.PLAYER1) {
+                                    
+                                    if (board.getColourMap().get(Board.PLAYER_TURN) == MarbleType.BLACK) {
                                         totalSec_black += sec_black;
                                         totalmSec_black += msec_black;
-                                        Board.PLAYER_TURN = TURN.PLAYER2;
-                                    }
-
-                                    else {
+                                    } else {
                                         totalSec_white += sec_white;
                                         totalmSec_white += msec_white;
-                                        Board.PLAYER_TURN = TURN.PLAYER1;
                                     }
+                                    
+                                    Board.PLAYER_TURN = Board.OPPONENT_MAP.get(Board.PLAYER_TURN);
                                     turnOver = true;
-
                                     break;
                                 }
                             }
@@ -656,19 +654,17 @@ public class GameFrame extends JFrame {
 
                                 board.clearMarbles();
                                 board.setNumOfMove();
-                                if (Board.PLAYER_TURN == TURN.PLAYER1) {
+                                if (board.getColourMap().get(Board.PLAYER_TURN) == MarbleType.BLACK) {
                                     totalSec_black += sec_black;
                                     totalmSec_black += msec_black;
-                                    Board.PLAYER_TURN = TURN.PLAYER2;
-
                                 } else {
                                     totalSec_white += sec_white;
                                     totalmSec_white += msec_white;
-                                    Board.PLAYER_TURN = TURN.PLAYER1;
                                 }
+                                
+                                Board.PLAYER_TURN = Board.OPPONENT_MAP.get(Board.PLAYER_TURN);
                                 turnOver = true;
                                 break;
-
                             } else {
                                 resetMarbles();
                             }
