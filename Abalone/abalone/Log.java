@@ -74,8 +74,8 @@ public class Log {
             int newX = oldX + point.x;
             int newY = oldY + point.y;
 
-            text += type + " marble at [" + oldX + "][" + oldY + "] moved to "
-                    + direction + " at [" + newX + "][" + newY + "].\n";
+            text += type + " marble at [" + oldX + "][" + (oldY / 2 -1) + "] moved to "
+                    + direction + " at [" + newX + "][" + (newY / 2 -1) + "].\n";
         }
     }
 
@@ -83,7 +83,7 @@ public class Log {
         if (enabled) {
             int x = marble.getCell().getX();
             int y = marble.getCell().getY();
-            text += type + " marble at [" + x + "][" + y
+            text += type + " marble at [" + x + "][" + (y / 2 - 1)
                     + "] was pushed out.\n";
         }
     }
