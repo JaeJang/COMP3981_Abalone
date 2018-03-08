@@ -151,7 +151,7 @@ public class GameFrame extends JFrame {
             if (turnLimit != 0) {
                 g.setColor(Color.black);
                 g.setFont(fnt2);
-                g.drawString("Turn Limit " + turnLimit, 0, 110 );
+                g.drawString("Turn Limit " + turnLimit, 0, 850 );
             }
 
             // Player2(White) information
