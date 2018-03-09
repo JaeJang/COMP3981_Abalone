@@ -75,6 +75,7 @@ public class MyTimer extends TimerTask {
                     sec = 0;
                     msec = 0;
                     resetMarbles();
+                    frame.showVictoryWindow();
                 }
             }
             
@@ -95,6 +96,11 @@ public class MyTimer extends TimerTask {
         }
     }
     
+    public void deleteTimer() {
+        time.cancel();
+        time = null;
+        
+    }
     public void setTimer() {
         if(time == null) {
             time = new Timer();

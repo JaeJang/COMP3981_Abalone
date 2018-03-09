@@ -66,6 +66,7 @@ public class Log {
     public void addMove(Marble marble, Direction direction) {
         if (enabled) {
             setMarble(marble);
+            setMarbleType(marble.getType());
             setDirection(direction.toString());
             setPoint(board.getMoveSets().get(direction));
 

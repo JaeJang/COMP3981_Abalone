@@ -793,6 +793,7 @@ public class GameFrame extends JFrame {
     }
 
     public void victoryWindow(MarbleType type) {
+        timer.deleteTimer();
         String resultMessage;
         JPanel panel = new JPanel();
 
@@ -858,9 +859,9 @@ public class GameFrame extends JFrame {
 
     public void showVictoryWindow() {
         if (getScore(MarbleType.WHITE) == 6) {
-            victoryWindow(MarbleType.BLACK);
+            victoryWindow(MarbleType.BLACK);         
         } else if (getScore(MarbleType.BLACK) == 6) {
-            victoryWindow(MarbleType.WHITE);
+            victoryWindow(MarbleType.WHITE);            
         } else {
             // has turn limit
             if (turnLimit != 0) {
