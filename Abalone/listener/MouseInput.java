@@ -103,39 +103,31 @@ public class MouseInput extends MouseAdapter {
                 
                 Board.layout_number = 0;
                 
-                frame.setBoardToNew();
-                
-                GameFrame.state = STATE.TIME_SETTING;
-
-                frame.init();
-                
 
             } else if(mouseOver(mx, my, 0, 250, 1800,170)) {
                 
                 Board.layout_number = 1;
-                
-                frame.setBoardToNew();
-                
-                GameFrame.state = STATE.TIME_SETTING;
-                
-                frame.init();
                 
                 
             } else if(mouseOver(mx, my, 0, 460, 1800,170)) {
                 
                 Board.layout_number = 2;
                 
-                frame.setBoardToNew();
-                
-                GameFrame.state = STATE.TIME_SETTING;
-                
-                frame.init();
-                
             } else if (mouseOver(mx, my,0, 670, 1800, 170)) {
+                
                 //
-                //TODO: This is the place where you need to call a input file method
+                //TODO: This is the place where you need to call a a method which brings 
+                //      the inputter
                 //
+                
+                //Board.layout_number = 3;
+                
             }
+            frame.setBoardToNew();
+            
+            GameFrame.state = STATE.TIME_SETTING;
+            
+            frame.init();
 
         }
         

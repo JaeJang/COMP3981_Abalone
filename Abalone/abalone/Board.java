@@ -79,7 +79,10 @@ public class Board {
             belgiumDaisyLayout();
         else if(layout_number == 2)
             germanDaisyLayout();
-        
+        else if(layout_number == 3) {
+            //TODO: call a layout method on the basis of input file
+        }
+            
         initializeMoveSets();
         initializeColourMap();
     }

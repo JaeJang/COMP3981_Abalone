@@ -43,8 +43,8 @@ import listener.MyTimer;
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame {
 
-    //public static STATE state = STATE.MODE_SETTING;
-    public static STATE state = STATE.LAYOUT_SELECT;
+    public static STATE state = STATE.MODE_SETTING;
+    //public static STATE state = STATE.LAYOUT_SELECT;
     public static boolean turnOver = false;
     public static int turnLimit = 0;
     public static TURN TURN_SETTING;
