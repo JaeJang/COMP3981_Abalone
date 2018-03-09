@@ -43,7 +43,8 @@ import listener.MyTimer;
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame {
 
-    public static STATE state = STATE.MODE_SETTING;
+    //public static STATE state = STATE.MODE_SETTING;
+    public static STATE state = STATE.LAYOUT_SELECT;
     public static boolean turnOver = false;
     public static int turnLimit = 0;
     public static TURN TURN_SETTING;
@@ -76,7 +77,7 @@ public class GameFrame extends JFrame {
 
         boardpanel = new BoardPanel();
         menu = new Menu();
-        menuPanel = menu.startPanel();
+        menuPanel = menu.layoutPanel();
         timer = new MyTimer(this);
         timer.setTimer();
     }
@@ -89,7 +90,6 @@ public class GameFrame extends JFrame {
         getContentPane().removeAll();
         if (state == STATE.MODE_SETTING) {
             menuPanel = menu.gameModeSetPanel();
-            getContentPane().removeAll();
             add(menuPanel);
         } else if (state == STATE.TEAM_SETTING_PVP
                 || state == STATE.TEAM_SETTING_PVC
@@ -97,7 +97,7 @@ public class GameFrame extends JFrame {
             menuPanel = menu.teamSettingPanel();
             add(menuPanel);
         } else if (state == STATE.LAYOUT_SELECT) {
-            menuPanel = menu.startPanel();
+            menuPanel = menu.layoutPanel();
             add(menuPanel);
         } else if (state == STATE.TIME_SETTING) {
             menuPanel = menu.timeSettingPanel();
@@ -105,9 +105,7 @@ public class GameFrame extends JFrame {
         } else if (state == STATE.TURN_LIMIT_SETTING) {
             menuPanel = menu.turnLimitSetting();
             add(menuPanel);
-        }
-
-        else if (state == STATE.GAME) {
+        } else if (state == STATE.GAME) {
             add(boardpanel);
         } else if (state == STATE.PASUSE) {
             menuPanel = menu.pausePanel();
@@ -157,6 +155,19 @@ public class GameFrame extends JFrame {
             }
 
             // Player2(White) information
+            player2Information(g);
+            // Player1(Black) information
+            player1Information(g);
+
+            g.setColor(new Color(111, 37, 3));
+            removeAllMouseListeners();
+            Graphics2D g2d = (Graphics2D) g;
+            drawHexagon(g2d);
+            drawCells(g2d);
+            addClickListener();
+        }
+        
+        private void player2Information(Graphics g) {
             g.setColor(Color.white);
             g.fillRect(910, 0, 850 , 450 );
             g.setColor(Color.black);
@@ -172,8 +183,8 @@ public class GameFrame extends JFrame {
                     1300, 200 );
             g.drawString("Turns " + board.getNumOfMove(MarbleType.WHITE), 1300,
                     290 );
-
-            // Player1(Black) information
+        }
+        private void player1Information(Graphics g) {
             g.setColor(Color.black);
             g.fillRect(910, 400 , 850 , 450 );
             g.setColor(Color.white);
@@ -189,13 +200,6 @@ public class GameFrame extends JFrame {
                     1300, 640 );
             g.drawString("Turns " + board.getNumOfMove(MarbleType.BLACK), 1300,
                     730 );
-
-            g.setColor(new Color(111, 37, 3));
-            removeAllMouseListeners();
-            Graphics2D g2d = (Graphics2D) g;
-            drawHexagon(g2d);
-            drawCells(g2d);
-            addClickListener();
         }
 
         /**

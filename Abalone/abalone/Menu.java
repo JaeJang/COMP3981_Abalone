@@ -14,30 +14,37 @@ public class Menu extends JPanel{
     
     private String userTyped = "";
     private int textPosition = 0;
+    
+    
+    
     /**
      * Return JPanel which is appeared when the program starts
      * 
      * @return
      */
-    public JPanel startPanel() {
+    public JPanel layoutPanel() {
         
         return new JPanel() {
             public void paintComponent(Graphics g) {
                 g.setColor(Color.white);
                 g.fillRect(0, 40, 1800,170);
                 g.setColor(Color.black);
-                g.fillRect(0, 355, 1800,170);
+                g.fillRect(0, 250, 1800,170);
                 g.setColor(Color.white);
-                g.fillRect(0, 670, 1800,170);
+                g.fillRect(0, 460, 1800,170);
+                g.setColor(Color.black);
+                g.fillRect(0, 670, 1800, 170);
                 
                 
                 g.setFont(new Font("Impact", 2, 150));
                 g.setColor(Color.black);
                 g.drawString("Standard", 640, 185);
                 g.setColor(Color.white);
-                g.drawString("Belgium Daisy", 480, 500);
+                g.drawString("Belgium Daisy", 480, 395);
                 g.setColor(Color.black);
-                g.drawString("German Daisy", 500, 815);
+                g.drawString("German Daisy", 500, 605);
+                g.setColor(Color.white);
+                g.drawString("Input File", 600, 815);
                 
                 
             }
@@ -178,6 +185,10 @@ public class Menu extends JPanel{
                 }
             }
         };
+    }
+    
+    public void drawScreenByState() {
+        
     }
     
     public void takeTimeOrTurnlimit(String userTyped, boolean backSpacePressed) {

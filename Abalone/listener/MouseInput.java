@@ -110,7 +110,7 @@ public class MouseInput extends MouseAdapter {
                 frame.init();
                 
 
-            } else if(mouseOver(mx, my, 0, 355, 1800,170)) {
+            } else if(mouseOver(mx, my, 0, 250, 1800,170)) {
                 
                 Board.layout_number = 1;
                 
@@ -121,7 +121,7 @@ public class MouseInput extends MouseAdapter {
                 frame.init();
                 
                 
-            } else if(mouseOver(mx, my, 0, 670, 1800,170)) {
+            } else if(mouseOver(mx, my, 0, 460, 1800,170)) {
                 
                 Board.layout_number = 2;
                 
@@ -131,6 +131,10 @@ public class MouseInput extends MouseAdapter {
                 
                 frame.init();
                 
+            } else if (mouseOver(mx, my,0, 670, 1800, 170)) {
+                //
+                //TODO: This is the place where you need to call a input file method
+                //
             }
 
         }
