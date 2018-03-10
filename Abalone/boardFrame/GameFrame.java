@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Polygon;
@@ -28,6 +27,7 @@ import javax.swing.SwingUtilities;
 
 import abalone.Board;
 import abalone.Cell;
+import abalone.FileInput;
 import abalone.Log;
 import abalone.Marble;
 import abalone.Menu;
@@ -49,6 +49,7 @@ public class GameFrame extends JFrame {
     public static int turnLimit = 0;
     public static TURN TURN_SETTING;
     public Menu menu;
+    FileInput fileInput;
 
     private Board board;
     private Marble marble;
@@ -99,6 +100,9 @@ public class GameFrame extends JFrame {
         } else if (state == STATE.LAYOUT_SELECT) {
             menuPanel = menu.layoutPanel();
             add(menuPanel);
+        } else if(state == STATE.FILE_INPUT) {
+            fileInput = new FileInput(this);
+            add(fileInput);
         } else if (state == STATE.TIME_SETTING) {
             menuPanel = menu.timeSettingPanel();
             add(menuPanel);

@@ -1,8 +1,7 @@
 package abalone;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -34,20 +33,20 @@ public class FileInput extends JPanel implements ActionListener{
 	 * @param s
 	 */
 	public FileInput(GameFrame frame) {
-		Container container = frame.getContentPane();
-		container.setBackground(Color.white);
-		container.setLayout(new BorderLayout(5, 5));
+		setBackground(Color.white);
+		setLayout(new GridLayout(1, 2));
 
 		openButton = new JButton("Open File");
 		openButton.addActionListener(this);
-		container.add(openButton, BorderLayout.WEST);
+		add(openButton);
 
 		readButton = new JButton("Read File");
 		readButton.addActionListener(this);
 		readButton.setEnabled(false);
-		container.add(readButton, BorderLayout.EAST);
-		add(container);
+		add(readButton);
+		
 	}
+	
 
 	/**
 	 * ActionPerformed for buttons

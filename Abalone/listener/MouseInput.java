@@ -103,16 +103,29 @@ public class MouseInput extends MouseAdapter {
                 
                 Board.layout_number = 0;
                 
-
+                frame.setBoardToNew();
+                
+                GameFrame.state = STATE.TIME_SETTING;
+                
+                frame.init();
             } else if(mouseOver(mx, my, 0, 250, 1800,170)) {
                 
                 Board.layout_number = 1;
                 
+                frame.setBoardToNew();
                 
+                GameFrame.state = STATE.TIME_SETTING;
+                
+                frame.init();
             } else if(mouseOver(mx, my, 0, 460, 1800,170)) {
                 
                 Board.layout_number = 2;
                 
+                frame.setBoardToNew();
+                
+                GameFrame.state = STATE.TIME_SETTING;
+                
+                frame.init();
             } else if (mouseOver(mx, my,0, 670, 1800, 170)) {
                 
                 //
@@ -121,13 +134,10 @@ public class MouseInput extends MouseAdapter {
                 //
                 
                 //Board.layout_number = 3;
-                
+                GameFrame.state = STATE.FILE_INPUT;
+                frame.init();
             }
-            frame.setBoardToNew();
             
-            GameFrame.state = STATE.TIME_SETTING;
-            
-            frame.init();
 
         }
         
