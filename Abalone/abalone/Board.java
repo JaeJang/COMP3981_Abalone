@@ -48,8 +48,10 @@ public class Board {
     public static TURN PLAYER_TURN = TURN.PLAYER1;
     public static int layout_number = 0;
 
-    private ArrayList<Marble> marbles;
     private ArrayList<String> fileInputPosArray;
+    private String inputFileStarter;
+    
+    private ArrayList<Marble> marbles;
     private HashMap<Direction, Point> moveSet;
     public HashMap<TURN, MarbleType> colourMap;
     private Cell[][] cell;
@@ -574,8 +576,11 @@ public class Board {
      * 
      * @param array
      */
-    public void setFileInputPosArray(ArrayList<String> array) {
+    public void setFileInputPosArray(ArrayList<String> array, String starter) {
         fileInputPosArray = array;
+        inputFileStarter = starter;
+        System.out.println();
+        System.out.println(inputFileStarter);
         System.out.println(fileInputPosArray);
     }
 
