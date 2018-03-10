@@ -576,6 +576,7 @@ public class Board {
      */
     public void setFileInputPosArray(ArrayList<String> array) {
         fileInputPosArray = array;
+        System.out.println(fileInputPosArray);
     }
 
 }

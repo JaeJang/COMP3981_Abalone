@@ -102,7 +102,6 @@ public class GameFrame extends JFrame {
             add(menuPanel);
         } else if(state == STATE.FILE_INPUT) {
             fileInput = new FileInput(this);
-            board.setFileInputPosArray(fileInput.getInitPosArray());
             add(fileInput);
         } else if (state == STATE.TIME_SETTING) {
             menuPanel = menu.timeSettingPanel();
