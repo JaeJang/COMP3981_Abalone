@@ -92,7 +92,7 @@ public class MyTimer extends TimerTask {
             
         
         frame.updateTime(sec, msec);
-        frame.rePaint();
+        frame.repaint();
         }
     }
     
@@ -113,7 +113,7 @@ public class MyTimer extends TimerTask {
             marble.setNormalColor();
         }
         frame.getBoard().clearMarbles();
-        frame.rePaint();
+        frame.repaint();
     }
     
     public String getPlayer1ToTal() {

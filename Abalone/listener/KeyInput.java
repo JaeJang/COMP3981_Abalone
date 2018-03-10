@@ -47,7 +47,7 @@ public class KeyInput extends KeyAdapter{
             if(Character.isDigit(temp)) {
                 userInput += temp;
                 frame.menu.takeTimeOrTurnlimit(userInput, false);
-                frame.rePaint();
+                frame.repaint();
             }
             
             //when back space is pressed
@@ -55,7 +55,7 @@ public class KeyInput extends KeyAdapter{
                 if(!userInput.equals("")) {
                     userInput = userInput.substring(0, userInput.length() - 1); 
                     frame.menu.takeTimeOrTurnlimit(userInput, true);
-                    frame.rePaint();
+                    frame.repaint();
                     
                 }
             }
@@ -69,7 +69,6 @@ public class KeyInput extends KeyAdapter{
                         frame.init();
                     } else {
                         GameFrame.turnLimit = frame.menu.getUserTyped();
-                        System.out.println(GameFrame.turnLimit);
                         resetUserInput();
                         GameFrame.state = STATE.GAME;
                         frame.init();
@@ -101,14 +100,14 @@ public class KeyInput extends KeyAdapter{
             if(Character.isDigit(temp)) {
                 userInput += temp;
                 frame.menu.takeTimeOrTurnlimit(userInput, false);
-                frame.rePaint();
+                frame.repaint();
             }
             
             if (key == KeyEvent.VK_BACK_SPACE) {
                 if(!userInput.equals("")) {
                     userInput = userInput.substring(0, userInput.length() - 1); 
                     frame.menu.takeTimeOrTurnlimit(userInput, true);
-                    frame.rePaint();
+                    frame.repaint();
                     
                 }
             }
@@ -127,32 +126,6 @@ public class KeyInput extends KeyAdapter{
                 GameFrame.state = STATE.PASUSE;
 
                 frame.init();
-
-            }
-
-            if(key == KeyEvent.VK_SPACE) {
-
-                ArrayList<Cell> list = board.getCells();
-
-                for(Cell cell : list) {
-
-                    if(cell.getMarble() != null) {
-
-                        
-
-                        if(cell.getMarble().getType() == MarbleType.BLACK) {
-
-                            cell.setMarble(null);
-
-                            frame.rePaint();
-
-                            break;
-
-                        }
-
-                    }
-
-                }
 
             }
 

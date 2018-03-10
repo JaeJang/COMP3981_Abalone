@@ -747,10 +747,7 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public void rePaint() {
-        repaint();
-    }
-
+    
     /**
      * Reset the board This method is called in KeyInput Class when users clicks
      * Reset button
