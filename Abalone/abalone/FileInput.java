@@ -57,6 +57,7 @@ public class FileInput extends JPanel implements ActionListener{
 		}
 		if (event.getActionCommand().equals("Read File")) {
 			readFile();
+			
 		}
 	}
 

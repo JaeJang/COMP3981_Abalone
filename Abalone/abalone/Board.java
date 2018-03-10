@@ -49,6 +49,7 @@ public class Board {
     public static int layout_number = 0;
 
     private ArrayList<Marble> marbles;
+    private ArrayList<String> fileInputPosArray;
     private HashMap<Direction, Point> moveSet;
     public HashMap<TURN, MarbleType> colourMap;
     private Cell[][] cell;
@@ -62,6 +63,7 @@ public class Board {
     public Board() {
         cell = new Cell[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
         marbles = new ArrayList<Marble>();
+        fileInputPosArray = new ArrayList<String>();
         moveSet = new HashMap<Direction, Point>();
         colourMap = new HashMap<TURN, MarbleType>();
         firstCoordinate = new Point();
@@ -565,6 +567,15 @@ public class Board {
             return num_move_white;
         else
             return num_move_black;
+    }
+    
+    /**
+     * Get position information of Input file as a String ArrayList
+     * 
+     * @param array
+     */
+    public void setFileInputPosArray(ArrayList<String> array) {
+        fileInputPosArray = array;
     }
 
 }
