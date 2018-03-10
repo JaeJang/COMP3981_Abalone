@@ -26,6 +26,7 @@ public class FileInput extends JPanel implements ActionListener{
 	private String data;
 	private String starter;
 	private ArrayList<String> initPos;
+	private GameFrame frame;
 
 	/**
 	 * Constructor Takes in a single value
@@ -33,6 +34,7 @@ public class FileInput extends JPanel implements ActionListener{
 	 * @param s
 	 */
 	public FileInput(GameFrame frame) {
+	    this.frame = frame;
 		setBackground(Color.white);
 		setLayout(new GridLayout(1, 2));
 
