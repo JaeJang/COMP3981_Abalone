@@ -10,6 +10,7 @@ import abalone.gameEnum.Layout;
 import abalone.gameEnum.Direction;
 import abalone.gameEnum.MarbleType;
 import abalone.gameEnum.TURN;
+import boardFrame.FrameMethods;
 
 /**
  * 
@@ -48,8 +49,8 @@ public class Board {
     public static TURN PLAYER_TURN = TURN.PLAYER1;
     public static int layout_number = 0;
 
-    private ArrayList<String> fileInputPosArray;
-    private String inputFileStarter;
+    private static String fileInputPos;
+    private static String inputFileStarter;
     
     private ArrayList<Marble> marbles;
     private HashMap<Direction, Point> moveSet;
@@ -65,7 +66,7 @@ public class Board {
     public Board() {
         cell = new Cell[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS];
         marbles = new ArrayList<Marble>();
-        fileInputPosArray = new ArrayList<String>();
+        //fileInputPosArray = new ArrayList<String>();
         moveSet = new HashMap<Direction, Point>();
         colourMap = new HashMap<TURN, MarbleType>();
         firstCoordinate = new Point();
@@ -85,6 +86,8 @@ public class Board {
             germanDaisyLayout();
         else if(layout_number == 3) {
             //TODO: call a layout method on the basis of input file
+            System.out.println(inputFileStarter + fileInputPos);
+            placeInputFile(inputFileStarter, fileInputPos);
         }
             
         initializeMoveSets();
@@ -576,12 +579,41 @@ public class Board {
      * 
      * @param array
      */
-    public void setFileInputPosArray(ArrayList<String> array, String starter) {
-        fileInputPosArray = array;
+    public void setFileInputPos(String initPostion, String starter) {
+        fileInputPos = initPostion;
         inputFileStarter = starter;
-        System.out.println();
-        System.out.println(inputFileStarter);
-        System.out.println(fileInputPosArray);
+    }
+    
+public void placeInputFile(String turn, String list) {
+        
+        if(turn.equals("w")) {
+            PLAYER_TURN = OPPONENT_MAP.get(Board.PLAYER_TURN);
+        }
+        
+        String[] positions = list.split(",");
+        
+        for(String position : positions) {
+            
+            char x = position.charAt(0);
+            int y = Character.getNumericValue(position.charAt(1));
+            char color = position.charAt(2);
+            System.out.println(y);
+            int xPosition = FrameMethods.X_POSITION.get(x);
+            int yPosition = FrameMethods.whichRow(x, y);
+            
+            //System.out.println(yPosition);
+            MarbleType marbleType = null;
+            if(color == 'b') {
+                marbleType = MarbleType.BLACK;
+            } else if(color == 'w') {
+                marbleType = MarbleType.WHITE;
+            }
+            Cell currentCell = getCellAt(xPosition, yPosition);
+            if(currentCell == null) {
+                System.out.println("it's null");
+            }
+            currentCell.setMarble(new Marble(this, currentCell, marbleType));
+        }
     }
 
 }

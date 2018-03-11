@@ -16,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import abalone.gameEnum.STATE;
 import boardFrame.GameFrame;
 
 public class FileInput extends JPanel implements ActionListener{
@@ -26,6 +27,7 @@ public class FileInput extends JPanel implements ActionListener{
 	private String data;
 	private String starter;
 	private ArrayList<String> initPos;
+	private String initPostion="";
 	private GameFrame frame;
 
 	/**
@@ -59,7 +61,11 @@ public class FileInput extends JPanel implements ActionListener{
 		}
 		if (event.getActionCommand().equals("Read File")) {
 			readFile();
-			frame.getBoard().setFileInputPosArray(getInitPosArray(), getStartingMarble());
+			frame.getBoard().setFileInputPos(initPostion, starter);
+			Board.layout_number = 3;
+			frame.setBoardToNew();
+			GameFrame.state = STATE.TIME_SETTING;
+			frame.init();
 			
 		}
 	}
@@ -108,12 +114,13 @@ public class FileInput extends JPanel implements ActionListener{
 			System.exit(1);
 		}
 		try {
-			data = fileInput.readLine();
-			System.out.println("Initial Position: " + data);
+		    initPostion = fileInput.readLine();
+			
+			/*System.out.println("Initial Position: " + data);
 			initPos = new ArrayList<String>(Arrays.asList(data.split("/")));
 			for (int i = 0; i < initPos.size(); i++) {
 				System.out.println(initPos.get(i));
-			}
+			}*/
 			closeFile();
 		} catch (IOException ioException) {
 			JOptionPane.showMessageDialog(this, "Error reading File", "Error 5: ", JOptionPane.ERROR_MESSAGE);
@@ -182,8 +189,8 @@ public class FileInput extends JPanel implements ActionListener{
 	 * Gets the arrayList that contains the initial position
 	 * @return initPos
 	 */
-	public ArrayList<String> getInitPosArray() {
-		return initPos;
+	public String getInitPosArray() {
+		return initPostion;
 	}
 	
 	/**
