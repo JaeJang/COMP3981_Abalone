@@ -585,7 +585,6 @@ public class Board {
     }
     
 public void placeInputFile(String turn, String list) {
-        
         if(turn.equals("w")) {
             PLAYER_TURN = OPPONENT_MAP.get(Board.PLAYER_TURN);
         }
@@ -597,7 +596,7 @@ public void placeInputFile(String turn, String list) {
             char x = position.charAt(0);
             int y = Character.getNumericValue(position.charAt(1));
             char color = position.charAt(2);
-            System.out.println(y);
+
             int xPosition = FrameMethods.X_POSITION.get(x);
             int yPosition = FrameMethods.whichRow(x, y);
             

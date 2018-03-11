@@ -25,15 +25,28 @@ public class FrameMethods {
     }
 
     public static int whichRow(char letter, int number) {
-        if(letter == 'A' || letter == 'I') {
+        --number;
+        if(letter == 'A') {
             return ROWS_A_AND_I[number];
-        } else if(letter == 'B' || letter == 'H') {
+        } else if(letter == 'I') {
+            number -= 4;
+            return ROWS_A_AND_I[number];
+        }else if(letter == 'B') {
             return ROWS_B_AND_H[number];
-        } else if(letter == 'C' || letter == 'G') {
+        } else if(letter == 'H') {
+            number -= 3;
+            return ROWS_B_AND_H[number];
+        }else if(letter == 'C' ) {
             return ROWS_C_AND_G[number];
-        } else if(letter == 'D' || letter == 'F') {
+        } else if(letter == 'G') {
+            number -= 2;
+            return ROWS_C_AND_G[number];
+        }else if(letter == 'D') {
             return ROWS_D_AND_F[number];
-        } else if(letter == 'E') {
+        } else if(letter == 'F') {
+            number -= 1;
+            return ROWS_D_AND_F[number];
+        }else if(letter == 'E') {
             return ROW_E[number];
         }
         return 0;

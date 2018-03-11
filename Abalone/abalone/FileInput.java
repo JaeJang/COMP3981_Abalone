@@ -65,6 +65,9 @@ public class FileInput extends JPanel implements ActionListener{
 			Board.layout_number = 3;
 			frame.setBoardToNew();
 			GameFrame.state = STATE.TIME_SETTING;
+			if(starter.equals("w")) {
+			    Board.PLAYER_TURN = Board.OPPONENT_MAP.get(Board.PLAYER_TURN);
+			}
 			frame.init();
 			
 		}
